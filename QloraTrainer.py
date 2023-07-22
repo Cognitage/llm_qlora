@@ -29,7 +29,7 @@ class QloraTrainer:
         )
 
         if "model_family" in self.config and self.config["model_family"] == "llama":
-            tokenizer = LlamaTokenizer.from_pretrained(model_id)
+            tokenizer = LlamaTokenizer.from_pretrained(model_id, legacy=False)
             model = LlamaForCausalLM.from_pretrained(model_id, quantization_config=bnb_config, device_map={"":0})
         else:
             tokenizer = AutoTokenizer.from_pretrained(model_id)

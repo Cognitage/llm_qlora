@@ -29,11 +29,11 @@ class QloraTrainer:
         )
 
         if "model_family" in self.config and self.config["model_family"] == "llama":
-            tokenizer = LlamaTokenizer.from_pretrained(model_id, legacy=False)
-            model = LlamaForCausalLM.from_pretrained(model_id, quantization_config=bnb_config, device_map={"":0})
+            tokenizer = LlamaTokenizer.from_pretrained(model_id, legacy=True)
+            model = LlamaForCausalLM.from_pretrained(model_id, quantization_config=bnb_config, device_map='auto')
         else:
             tokenizer = AutoTokenizer.from_pretrained(model_id)
-            model = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=bnb_config, device_map={"":0})
+            model = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=bnb_config, device_map='auto')
 
         if not tokenizer.pad_token:
             # Add padding token if missing, e.g. for llama tokenizer
